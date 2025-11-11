@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function () {
+window.Webflow ||= [];
+window.Webflow.push(() => {
   const ERRORS = {
     empty_field: "Tous les champs doivent être remplis.",
     invalid_email: "L’adresse e-mail est invalide.",
@@ -24,4 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.ERRORS = ERRORS;
   window.showError = showError;
   window.clearError = clearError;
-})
+
+  console.log("✅ Fonctions globales Webflow disponibles :", window.showError);
+});
