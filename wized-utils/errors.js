@@ -1,5 +1,5 @@
 // errors.js  — version 100 % module ESM
-export const ERRORS = {
+const ERRORS = {
   empty_field: "Tous les champs doivent être remplis.",
   invalid_email: "L’adresse e-mail est invalide.",
   email_too_long: "L’adresse e-mail est trop longue (max 254 caractères).",
