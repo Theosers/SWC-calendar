@@ -74,6 +74,10 @@ window.Webflow.push(() => {
 
   return "";
 }
+  window.ERRORS = ERRORS;
+  window.showError = showError;
+  window.clearError = clearError;
+  window.validateClient = validateClient;
 
   console.log("✅ Fonctions globales Webflow disponibles :");
 });
