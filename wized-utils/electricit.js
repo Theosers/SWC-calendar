@@ -14,7 +14,7 @@ const ERRORS = {
   too_many_requests: "Nos serveurs sont momentanément saturés. Merci de réessayer dans quelques secondes.",
 };
 
-function showError(code, sel='[wized="signup-error"]') {
+function showError(code, sel='[wized="error-message"]') {
   const box = document.querySelector(sel);
   if (!box) return;
   box.textContent = ERRORS[code] || ERRORS.unknown_error;
