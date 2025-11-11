@@ -39,11 +39,42 @@ window.Webflow.push(() => {
     box.classList.remove("is-visible");
     box.removeAttribute("data-error");
   }
+  function validateClient(i) {
+  const email   = i["input:email"]?.trim().toLowerCase() || "";
+  const name    = i["input:name"]?.trim() || "";
+  const last    = i["input:last_name"]?.trim() || i["input:last-name"]?.trim() || "";
+  const pass    = i["input:password"]?.trim() || "";
+  const confirm = i["input:confirm-password"]?.trim() || "";
 
-  window.ERRORS = ERRORS;
-  window.showError = showError;
-  window.clearError = clearError;
 
-  console.log("✅ Fonctions globales Webflow disponibles :", window.showError);
+  // --- Vérification champs vides
+  if (!email || !name || !last || !pass || !confirm) return "empty_field";
+
+  // --- Vérification email
+  if (email.length > 75) return "email_too_long";
+  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  if (!isEmail) {
+    return "invalid_email";
+  }
+
+  // --- Vérification nom / prénom
+  const nameRegex = /^[A-Za-zÀ-ÿ' -]{2,50}$/;
+
+  if (!nameRegex.test(last)) return "invalid_last_name";
+  if (!nameRegex.test(name)) return "invalid_name";
+
+  // --- Vérification mot de passe
+  if (pass.length < 8) return "password_too_short";
+
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z\d@$!%*?&._-]{8,}$/;
+  if (!passwordRegex.test(pass)) return "password_too_weak";
+
+  // --- Vérification correspondance mot de passe
+  if (pass !== confirm) return "password_mismatch";
+
+  return "";
+}
+
+  console.log("✅ Fonctions globales Webflow disponibles :");
 });
  
