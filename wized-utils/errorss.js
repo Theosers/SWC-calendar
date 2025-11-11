@@ -1,10 +1,10 @@
-export const ERRORS = {
+const ERRORS = {
   empty_field: "Tous les champs doivent être remplis.",
   invalid_email: "L’adresse e-mail est invalide.",
   ...
 };
 
-export function showError(code, sel='[wized="signup-error"]') {
+function showError(code, sel='[wized="signup-error"]') {
   const box = document.querySelector(sel);
   if (!box) return;
   box.textContent = ERRORS[code] || ERRORS.unknown_error;
@@ -12,7 +12,7 @@ export function showError(code, sel='[wized="signup-error"]') {
   box.setAttribute("data-error", code);
 }
 
-export function clearError(sel='[wized="signup-error"]') {
+function clearError(sel='[wized="signup-error"]') {
   const box = document.querySelector(sel);
   if (!box) return;
   box.textContent = "";
