@@ -24,5 +24,3 @@ document.addEventListener("DOMContentLoaded", function () {
   window.ERRORS = ERRORS;
   window.showError = showError;
   window.clearError = clearError;
-
-</script>
