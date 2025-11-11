@@ -72,7 +72,7 @@ window.Webflow.push(() => {
   // --- Vérification correspondance mot de passe
   if (pass !== confirm) return "password_mismatch";
 
-  return "";
+  return true;
 }
   window.ERRORS = ERRORS;
   window.showError = showError;
