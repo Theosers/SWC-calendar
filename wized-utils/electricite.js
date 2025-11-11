@@ -30,6 +30,11 @@ function clearError(sel='[wized="signup-error"]') {
   box.removeAttribute("data-error");
 }
 
+/**
+ * Vérifie les champs du formulaire (inscription ou login)
+ * @param {object} i - Inputs Wized (ex: i["input:email"])
+ * @returns {string|null} Code d’erreur s’il y en a une, sinon null
+ */
 function getFormValidationError(i) {
   const email   = i["input:email"]?.trim().toLowerCase() || "";
   const name    = i["input:name"]?.trim() || "";
@@ -37,18 +42,35 @@ function getFormValidationError(i) {
   const pass    = i["input:password"]?.trim() || "";
   const confirm = i["input:confirm-password"]?.trim() || "";
 
-  if (!email || !name || !last || !pass || !confirm) return "empty_field";
+  // --- Détermine le type de formulaire
+  const isSignup = Boolean(i["input:confirm-password"] || i["input:name"] || i["input:last_name"] || i["input:last-name"]);
+  const isLogin = !isSignup;
+
+  // --- Vérifie les champs obligatoires selon le type
+  if (!email || !pass) return "empty_field";
+  if (isSignup && (!name || !last || !confirm)) return "empty_field";
+
+  // --- Vérification email
   if (email.length > 75) return "email_too_long";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "invalid_email";
-  const nameRegex = /^[A-Za-zÀ-ÿ' -]{2,50}$/;
-  if (!nameRegex.test(last)) return "invalid_last_name";
-  if (!nameRegex.test(name)) return "invalid_name";
+
+  // --- Vérification mot de passe (toujours actif)
   if (pass.length < 8) return "password_too_short";
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z\d@$!%*?&._-]{8,}$/;
   if (!passwordRegex.test(pass)) return "password_too_weak";
-  if (pass !== confirm) return "password_mismatch";
+
+  // --- Vérification spécifique signup
+  if (isSignup) {
+    const nameRegex = /^[A-Za-zÀ-ÿ' -]{2,50}$/;
+    if (!nameRegex.test(name)) return "invalid_name";
+    if (!nameRegex.test(last)) return "invalid_last_name";
+    if (pass !== confirm) return "password_mismatch";
+  }
+
+  // ✅ Tout est bon
   return null;
 }
+
 
 /**
  * Analyse la réponse serveur (r.Sign_up, r.Login, etc.)
