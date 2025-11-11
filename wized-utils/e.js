@@ -46,3 +46,4 @@ window.Webflow.push(() => {
 
   console.log("✅ Fonctions globales Webflow disponibles :", window.showError);
 });
+ 
