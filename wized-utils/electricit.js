@@ -22,7 +22,7 @@ function showError(code, sel='[wized="error-message"]') {
   box.setAttribute("data-error", code);
 }
 
-function clearError(sel='[wized="signup-error"]') {
+function clearError(sel='[wized="error-message"]') {
   const box = document.querySelector(sel);
   if (!box) return;
   box.textContent = "";
