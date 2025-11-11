@@ -1,5 +1,5 @@
 <script>
-export const ERRORS = {
+const ERRORS = {
   // Champs vides / généraux
   empty_field: "Tous les champs doivent être remplis.",
 
