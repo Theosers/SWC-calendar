@@ -50,6 +50,9 @@ function getFormValidationError(i) {
   return null;
 }
 
+/**
+ * Analyse la réponse serveur (r.Sign_up, r.Login, etc.)
+ * et retourne un code d’erreur à afficher si nécessaire.
  * @param {object} response - La réponse Wized (ex: r.Sign_up)
  * @returns {string|null} Code d’erreur s’il y en a un, sinon null.
  */
