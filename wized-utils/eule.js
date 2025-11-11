@@ -47,7 +47,7 @@ function validateClient(i) {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z\d@$!%*?&._-]{8,}$/;
   if (!passwordRegex.test(pass)) return "password_too_weak";
   if (pass !== confirm) return "password_mismatch";
-  return true;
+  return null;
 }
 
 Object.assign(window, { ERRORS, showError, clearError, validateClient });
