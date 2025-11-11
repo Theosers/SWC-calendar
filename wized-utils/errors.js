@@ -19,8 +19,3 @@ export function clearError(sel='[wized="signup-error"]') {
   box.classList.remove("is-visible");
   box.removeAttribute("data-error");
 }
-
-// 👇 exposer pour Wized
-window.ERRORS = ERRORS;
-window.showError = showError;
-window.clearError = clearError;
