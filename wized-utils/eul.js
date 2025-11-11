@@ -30,7 +30,7 @@ function clearError(sel='[wized="signup-error"]') {
   box.removeAttribute("data-error");
 }
 
-function getClientValidationError(i) {
+function getFormValidationError(i) {
   const email   = i["input:email"]?.trim().toLowerCase() || "";
   const name    = i["input:name"]?.trim() || "";
   const last    = i["input:last_name"]?.trim() || i["input:last-name"]?.trim() || "";
