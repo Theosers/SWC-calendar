@@ -50,9 +50,35 @@ function getFormValidationError(i) {
   return null;
 }
 
-Object.assign(window, { ERRORS, showError, clearError, validateClient });
+ * @param {object} response - La réponse Wized (ex: r.Sign_up)
+ * @returns {string|null} Code d’erreur s’il y en a un, sinon null.
+ */
+function getServerValidationError(response) {
+  // --- 1️⃣ Vérifie la connexion internet
+  if (!navigator.onLine) return "network_error";
+
+  // --- 2️⃣ Vérifie la présence et la structure de la réponse
+  if (!response || typeof response.status === "undefined") return "network_error";
+
+  // --- 3️⃣ Vérifie les statuts HTTP connus
+  if (response.status >= 500) return "server_error";
+
+  if (response.status === 429) return "too_many_requests";
+
+  if (response.status === 403) return "email_exists";
+
+  // --- 4️⃣ Vérifie les autres erreurs HTTP génériques
+  if (response.status >= 400) return "unknown_error";
+
+  // ✅ Tout est bon
+  return null;
+}
+
+
+
+Object.assign(window, { ERRORS, showError, clearError, getFormValidationError, getServerValidationError });
 
 window.Webflow ||= [];
 window.Webflow.push(() => {
-  console.log("✅ Fonctions globales Webflow disponibles :", window.validateClient);
+  console.log("✅ Fonctions globales Webflow disponibles :", window.getFormValidationError);
 });
