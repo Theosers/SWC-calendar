@@ -12,6 +12,7 @@ const ERRORS = {
   server_error: "Une erreur interne au serveur est survenue.",
   unknown_error: "Une erreur inconnue est survenue. Réessaie plus tard.",
   too_many_requests: "Nos serveurs sont momentanément saturés. Merci de réessayer dans quelques secondes.",
+  unauthorized: "Identifiants invalides"
 };
 
 function showError(code, sel='[wized="error-message"]') {
@@ -93,6 +94,7 @@ function getServerValidationError(response) {
   if (response.status === 403) return "email_exists";
 
   // --- 4️⃣ Vérifie les autres erreurs HTTP génériques
+  if (response.status === 401) return "unauthorized";
   if (response.status >= 400) return "unknown_error";
 
   // ✅ Tout est bon
